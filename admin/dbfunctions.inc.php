@@ -78,18 +78,18 @@ function addUserVerifyInput($email)
     }
 }
 
-function loginAdmin($email, $password)
+function loginAdmin($username, $password)
 {
     try {
         $connection = connect();
-        $statement = $connection->prepare("SELECT * FROM users WHERE email = :email AND password = :password");
-        $statement->bindParam(":email", $email);
+        $statement = $connection->prepare("SELECT * FROM users WHERE username = :username AND password = :password");
+        $statement->bindParam(":username", $username);
         $hashedPassword = hash('sha256', $password);
         $statement->bindParam(":password", $hashedPassword);
         $statement->execute();
         if ($loggedUser = $statement->fetch()) {
-            $userID = $loggedUser['id'];
-            $detail = "$email logged in to the system.";
+            $userID = $loggedUser['userID'];
+            $detail = "Logged in to the system.";
             recordAudit($connection, $userID, 2, $detail);
             return $loggedUser;
         } else {
@@ -100,12 +100,12 @@ function loginAdmin($email, $password)
     }
 }
 
-function logoutAdmin($id, $email)
+function logoutAdmin($userID, $username)
 {
     try {
         $connection = connect();
-        $detail = "$email logged out.";
-        recordAudit($connection, $id, 3, $detail);
+        $detail = "Logged out.";
+        recordAudit($connection, $userID, 3, $detail);
     } catch (PDOException $exception) {
         die("Error: " . $exception->getMessage());
     }
@@ -129,8 +129,8 @@ function selectAudits()
     try {
         $connection = connect();
         $connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        $statement = $connection->query("SELECT auditID, type, email, details, audit.created_at FROM Audit 
-          LEFT JOIN users ON audit.userID = users.id
+        $statement = $connection->query("SELECT auditID, type, username, details, audit.created_at FROM Audit 
+          LEFT JOIN users ON audit.userID = users.userID
           LEFT JOIN auditType ON audit.auditTypeID = auditType.auditTypeID
           ORDER BY created_at DESC");
         $statement->setFetchMode(PDO::FETCH_ASSOC);

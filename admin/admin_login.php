@@ -7,19 +7,19 @@ if(isset($_SESSION['loggedUser'])) {
 }
 
 
-$email = "";
+$username = "";
 
 if(isset($_POST['login'])) {
 
-    $email = $_POST['email'];
+    $username = $_POST['username'];
 
-    $loggedUser = loginAdmin($_POST['email'], $_POST['password']);
+    $loggedUser = loginAdmin($_POST['username'], $_POST['password']);
     if($loggedUser) {
         $_SESSION['loggedUser'] = $loggedUser;
-        if($loggedUser['role_id'] == 0) {
+        if($loggedUser['roleid'] == 0) {
             header("Location: admin_dashboard.php");
         } else {
-			$error = "Invalid credentials";
+			header("Location: admin_login");
 		}
     }
     else {
@@ -85,7 +85,7 @@ if(isset($_POST['login'])) {
 					<form action="admin_login.php" method="post">
 						<div class="form-group login-input">
 						<i class="fa fa-envelope overlay"></i>
-						<input type="text" class="form-control text-input" placeholder="Email" name="email" value="<?=$email?>" required>
+						<input type="text" class="form-control text-input" placeholder="Username" name="username" value="<?=$username?>" required>
 						</div>
 						<div class="form-group login-input">
 						<i class="fa fa-key overlay"></i>

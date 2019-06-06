@@ -4,8 +4,8 @@ session_start();
 
 if(isset($_SESSION['loggedUser'])) {
     $loggedUser = $_SESSION['loggedUser'];
-    if($loggedUser['role_id'] != 0) {
-        header("Location: admin_dashboard.php");
+    if($loggedUser['roleID'] != 0) {
+        header("Location: admin_login.php");
 	}
 	$audits = selectAudits();
 } else {
@@ -15,6 +15,57 @@ if(isset($_SESSION['loggedUser'])) {
 <!DOCTYPE html>
 <html>
     <head>
+	 	<!-- the overlay modal element -->
+	<div class="md-overlay"></div>
+	<!-- End of eoverlay modal -->
+	<script>
+		var resizefunc = [];
+	</script>
+	<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+	<script src="assets/libs/jquery/jquery-1.11.1.min.js"></script>
+	<script src="assets/libs/bootstrap/js/bootstrap.min.js"></script>
+	<script src="assets/libs/jqueryui/jquery-ui-1.10.4.custom.min.js"></script>
+	<script src="assets/libs/jquery-ui-touch/jquery.ui.touch-punch.min.js"></script>
+	<script src="assets/libs/jquery-detectmobile/detect.js"></script>
+	<script src="assets/libs/jquery-animate-numbers/jquery.animateNumbers.js"></script>
+	<script src="assets/libs/ios7-switch/ios7.switch.js"></script>
+	<script src="assets/libs/fastclick/fastclick.js"></script>
+	<script src="assets/libs/jquery-blockui/jquery.blockUI.js"></script>
+	<script src="assets/libs/bootstrap-bootbox/bootbox.min.js"></script>
+	<script src="assets/libs/jquery-slimscroll/jquery.slimscroll.js"></script>
+	<script src="assets/libs/jquery-sparkline/jquery-sparkline.js"></script>
+	<script src="assets/libs/nifty-modal/js/classie.js"></script>
+	<script src="assets/libs/nifty-modal/js/modalEffects.js"></script>
+	<script src="assets/libs/sortable/sortable.min.js"></script>
+	<script src="assets/libs/bootstrap-fileinput/bootstrap.file-input.js"></script>
+	<script src="assets/libs/bootstrap-select/bootstrap-select.min.js"></script>
+	<script src="assets/libs/bootstrap-select2/select2.min.js"></script>
+	<script src="assets/libs/magnific-popup/jquery.magnific-popup.min.js"></script> 
+	<script src="assets/libs/pace/pace.min.js"></script>
+	<script src="assets/libs/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
+	<script src="assets/libs/jquery-icheck/icheck.min.js"></script>
+
+	<!-- Demo Specific JS Libraries -->
+	<script src="assets/libs/prettify/prettify.js"></script>
+
+	<script src="assets/js/init.js"></script>
+	<!-- Page Specific JS Libraries -->
+	<script src="assets/libs/d3/d3.v3.js"></script>
+	<script src="assets/libs/rickshaw/rickshaw.min.js"></script>
+	<script src="assets/libs/raphael/raphael-min.js"></script>
+	<script src="assets/libs/morrischart/morris.min.js"></script>
+	<script src="assets/libs/jquery-knob/jquery.knob.js"></script>
+	<script src="assets/libs/jquery-jvectormap/js/jquery-jvectormap-1.2.2.min.js"></script>
+	<script src="assets/libs/jquery-jvectormap/js/jquery-jvectormap-us-aea-en.js"></script>
+	<script src="assets/libs/jquery-clock/clock.js"></script>
+	<script src="assets/libs/jquery-easypiechart/jquery.easypiechart.min.js"></script>
+	<script src="assets/libs/jquery-weather/jquery.simpleWeather-2.6.min.js"></script>
+	<script src="assets/libs/bootstrap-xeditable/js/bootstrap-editable.min.js"></script>
+	<script src="assets/libs/bootstrap-calendar/js/bic_calendar.min.js"></script>
+	<script src="assets/js/apps/calculator.js"></script>
+	<script src="assets/js/apps/todo.js"></script>
+	<script src="assets/js/apps/notes.js"></script>
+	<script src="assets/js/pages/index.js"></script>
         <meta charset="UTF-8">
         <title>Dashboard</title>   
         <!-- Base Css Files -->
@@ -52,8 +103,17 @@ if(isset($_SESSION['loggedUser'])) {
         <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
         <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
         <![endif]-->
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+		<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/jszip-2.5.0/dt-1.10.18/af-2.3.3/b-1.5.6/b-colvis-1.5.6/b-flash-1.5.6/b-html5-1.5.6/b-print-1.5.6/cr-1.5.0/fc-3.2.5/fh-3.1.4/kt-2.5.0/r-2.2.2/rg-1.1.0/rr-1.2.4/sc-2.0.0/sl-1.3.0/datatables.min.css"/>
+		<script type="text/javascript" src="https://cdn.datatables.net/v/dt/jszip-2.5.0/dt-1.10.18/af-2.3.3/b-1.5.6/b-colvis-1.5.6/b-flash-1.5.6/b-html5-1.5.6/b-print-1.5.6/cr-1.5.0/fc-3.2.5/fh-3.1.4/kt-2.5.0/r-2.2.2/rg-1.1.0/rr-1.2.4/sc-2.0.0/sl-1.3.0/datatables.min.js"></script>
+		<script type="text/javascript" src="https://cdn.datatables.net/buttons/1.5.6/js/dataTables.buttons.min.js"></script>
+		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+		<script type="text/javascript" src="https://cdn.datatables.net/buttons/1.5.6/js/buttons.html5.min.js"></script>
+		<script type="text/javascript" src="https://cdn.datatables.net/buttons/1.5.6/js/buttons.print.min.js"></script>
+		<script type="text/javascript" src="https://cdn.datatables.net/buttons/1.5.6/js/buttons.colVis.min.js"></script>
 
-        
     </head>
     <body class="fixed-left">
         <!-- Modal Start -->
@@ -235,13 +295,13 @@ if(isset($_SESSION['loggedUser'])) {
 								<div class="clearfix"></div>
 								<div id="overall-report" class="collapse in hidden-xs">
 									<div class="table-responsive">
-									<table data-sortable class="table table-striped">
+									<table id="auditlogs">
 										<thead>
 											<tr>
 											<th scope="col">Action</th>
             								<th scope="col">Actor</th>
             								<th scope="col">Detail</th>
-            								<th class="text-right" scope="col">Timestamp</th>
+            								<th class="text-left" scope="col">Timestamp</th>
 											</tr>
 										</thead>
 										<tbody>
@@ -251,9 +311,9 @@ if(isset($_SESSION['loggedUser'])) {
                 						?>
                 								<tr class="table-primary">
                     							<td scope="row"><?= $audit['type'] ?></td>
-                    							<td scope="row"><?= $audit['email'] ?></td>
+                    							<td scope="row"><?= $audit['username'] ?></td>
                     							<td scope="row"><?= $audit['details'] ?></td>
-                    							<td class="text-right" scope="row"><?= $audit['created_at'] ?></td>
+                    							<td class="text-left" scope="row"><?= $audit['created_at'] ?></td>
                									 </tr>
                							 <?php
             									}
@@ -267,6 +327,15 @@ if(isset($_SESSION['loggedUser'])) {
         								?>
 										</tbody>
 									</table>
+									<script type="text/javascript">
+									$(document).ready( function () {
+    								$('#auditlogs').DataTable( {						
+										dom: '1Bfrtip',
+										buttons: [ 'pageLength', 'copy', 'excel', 'pdf', 'colvis' ],
+										"order": [[ 3, "desc" ]]
+									} );
+									} );
+									</script>
 									</div>
 								</div>
 							</div>
@@ -335,56 +404,8 @@ if(isset($_SESSION['loggedUser'])) {
 		    </ul>
 		</div>
 	<!-- End of page -->
-		<!-- the overlay modal element -->
-	<div class="md-overlay"></div>
-	<!-- End of eoverlay modal -->
-	<script>
-		var resizefunc = [];
-	</script>
-	<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-	<script src="assets/libs/jquery/jquery-1.11.1.min.js"></script>
-	<script src="assets/libs/bootstrap/js/bootstrap.min.js"></script>
-	<script src="assets/libs/jqueryui/jquery-ui-1.10.4.custom.min.js"></script>
-	<script src="assets/libs/jquery-ui-touch/jquery.ui.touch-punch.min.js"></script>
-	<script src="assets/libs/jquery-detectmobile/detect.js"></script>
-	<script src="assets/libs/jquery-animate-numbers/jquery.animateNumbers.js"></script>
-	<script src="assets/libs/ios7-switch/ios7.switch.js"></script>
-	<script src="assets/libs/fastclick/fastclick.js"></script>
-	<script src="assets/libs/jquery-blockui/jquery.blockUI.js"></script>
-	<script src="assets/libs/bootstrap-bootbox/bootbox.min.js"></script>
-	<script src="assets/libs/jquery-slimscroll/jquery.slimscroll.js"></script>
-	<script src="assets/libs/jquery-sparkline/jquery-sparkline.js"></script>
-	<script src="assets/libs/nifty-modal/js/classie.js"></script>
-	<script src="assets/libs/nifty-modal/js/modalEffects.js"></script>
-	<script src="assets/libs/sortable/sortable.min.js"></script>
-	<script src="assets/libs/bootstrap-fileinput/bootstrap.file-input.js"></script>
-	<script src="assets/libs/bootstrap-select/bootstrap-select.min.js"></script>
-	<script src="assets/libs/bootstrap-select2/select2.min.js"></script>
-	<script src="assets/libs/magnific-popup/jquery.magnific-popup.min.js"></script> 
-	<script src="assets/libs/pace/pace.min.js"></script>
-	<script src="assets/libs/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
-	<script src="assets/libs/jquery-icheck/icheck.min.js"></script>
-
-	<!-- Demo Specific JS Libraries -->
-	<script src="assets/libs/prettify/prettify.js"></script>
-
-	<script src="assets/js/init.js"></script>
-	<!-- Page Specific JS Libraries -->
-	<script src="assets/libs/d3/d3.v3.js"></script>
-	<script src="assets/libs/rickshaw/rickshaw.min.js"></script>
-	<script src="assets/libs/raphael/raphael-min.js"></script>
-	<script src="assets/libs/morrischart/morris.min.js"></script>
-	<script src="assets/libs/jquery-knob/jquery.knob.js"></script>
-	<script src="assets/libs/jquery-jvectormap/js/jquery-jvectormap-1.2.2.min.js"></script>
-	<script src="assets/libs/jquery-jvectormap/js/jquery-jvectormap-us-aea-en.js"></script>
-	<script src="assets/libs/jquery-clock/clock.js"></script>
-	<script src="assets/libs/jquery-easypiechart/jquery.easypiechart.min.js"></script>
-	<script src="assets/libs/jquery-weather/jquery.simpleWeather-2.6.min.js"></script>
-	<script src="assets/libs/bootstrap-xeditable/js/bootstrap-editable.min.js"></script>
-	<script src="assets/libs/bootstrap-calendar/js/bic_calendar.min.js"></script>
-	<script src="assets/js/apps/calculator.js"></script>
-	<script src="assets/js/apps/todo.js"></script>
-	<script src="assets/js/apps/notes.js"></script>
-	<script src="assets/js/pages/index.js"></script>
 	</body>
+	<!-- the overlay modal element -->
+	<div class="md-overlay"></div>
+	<!-- End of overlay modal -->
 </html>

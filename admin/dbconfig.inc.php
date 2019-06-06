@@ -1,6 +1,6 @@
 <?php
 
 $server = "localhost";
-$database = "agualifev2";
+$database = "agualife";
 $dbusername = "root";
-$dbpassword = "root";
+$dbpassword = "";

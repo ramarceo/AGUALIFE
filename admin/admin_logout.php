@@ -4,7 +4,7 @@ session_start();
 
 if(isset($_SESSION['loggedUser'])) {
     $loggedUser = $_SESSION['loggedUser'];
-    logoutAdmin($loggedUser['id'], $loggedUser['email']);
+    logoutAdmin($loggedUser['userID'], $loggedUser['username']);
 }
 
 session_destroy();

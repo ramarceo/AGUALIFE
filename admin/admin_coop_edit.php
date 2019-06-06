@@ -4,7 +4,7 @@ session_start();
 
 if(isset($_SESSION['loggedUser'])) {
     $loggedUser = $_SESSION['loggedUser'];
-    if($loggedUser['role_id'] != 0) {
+    if($loggedUser['roleID'] != 0) {
         header("Location: admin_dashboard.php");
     }
 } else {

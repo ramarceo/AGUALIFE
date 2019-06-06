@@ -4,7 +4,7 @@ session_start();
 
 if(isset($_SESSION['loggedUser'])) {
     $loggedUser = $_SESSION['loggedUser'];
-    if($loggedUser['role_id'] != 0) {
+    if($loggedUser['roleID'] != 0) {
         header("Location: admin_dashboard.php");
 	}
 	$audits = selectAudits();
@@ -181,6 +181,10 @@ if(isset($_SESSION['loggedUser'])) {
 							<div class="widget-content padding">							
 								<div id="basic-form">
 									<form role="form">
+									<div class="form-group col-xs-12">
+										<label for="username">Username</label>
+										<input type="text" class="form-control" id="username" placeholder="Enter Username">
+									</div>
 									  <div class="form-group col-xs-12">
 										<label for="email">Email address</label>
 										<input type="email" class="form-control" id="email" placeholder="Enter Email">
@@ -205,7 +209,7 @@ if(isset($_SESSION['loggedUser'])) {
 										<label for="lastName">Address</label>
 										<input type="text" class="form-control" id="lastName" placeholder="Enter Address">
 									  </div>
-                                      <br>						  
+                                      <br><br>					  
 									  <button type="submit" class="btn btn-default">Submit</button>
 									</form>
 								</div>
